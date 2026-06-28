@@ -329,6 +329,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                     </form>
 
+                    <div class="text-center my-3">
+                        <a href="<?= base_url('auth/google.php?action=redirect'); ?>" class="btn btn-outline-danger w-100">
+                            <i class="fa-brands fa-google me-2"></i> Continue with Google
+                        </a>
+                    </div>
+
                     <hr>
 
                     <p class="text-center mb-0">

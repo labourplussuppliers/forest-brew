@@ -52,6 +52,7 @@ class Database
                 );
 
                 $this->ensureSchema();
+                $this->ensureAdminUser();
 
             } catch (PDOException $e) {
 
@@ -67,6 +68,38 @@ class Database
         }
 
         return self::$connection;
+    }
+
+    private function ensureAdminUser(): void
+    {
+        try {
+            $check = self::$connection->prepare("SELECT id FROM users WHERE email = ? LIMIT 1");
+            $check->execute(['admin@frostbrew.com']);
+
+            if ($check->fetch()) {
+                return;
+            }
+
+            $passwordHash = password_hash('Admin@123', PASSWORD_DEFAULT);
+
+            $insert = self::$connection->prepare("
+                INSERT INTO users (role_id, first_name, last_name, username, email, password, status, created_at)
+                VALUES (:role_id, :first_name, :last_name, :username, :email, :password, :status, NOW())
+            ");
+
+            $insert->execute([
+                ':role_id' => 2, // Admin role (created by schema)
+                ':first_name' => 'Frost',
+                ':last_name' => 'Brew',
+                ':username' => 'admin',
+                ':email' => 'admin@frostbrew.com',
+                ':password' => $passwordHash,
+                ':status' => 'Active'
+            ]);
+
+        } catch (PDOException $e) {
+            // If users table doesn't exist yet or any error occurs, silently continue
+        }
     }
 
     private function isDatabaseMissing(PDOException $e): bool

@@ -618,3 +618,176 @@ function writeLog($message)
 
     file_put_contents($file, $content, FILE_APPEND);
 }
+
+/**
+ * -------------------------------------------------------
+ * Simple HTTP POST (JSON) using cURL
+ * -------------------------------------------------------
+ */
+function http_post_json($url, $data, $headers = [])
+{
+    $ch = curl_init($url);
+
+    $defaultHeaders = [
+        'Content-Type: application/json'
+    ];
+
+    $allHeaders = array_merge($defaultHeaders, $headers);
+
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $allHeaders);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+    curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+
+    $response = curl_exec($ch);
+
+    if ($response === false) {
+        curl_close($ch);
+        return null;
+    }
+
+    $status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+    curl_close($ch);
+
+    return ['status' => $status, 'body' => $response];
+}
+
+/**
+ * -------------------------------------------------------
+ * Simple HTTP GET with Bearer token
+ * -------------------------------------------------------
+ */
+function http_get_bearer($url, $token)
+{
+    $ch = curl_init($url);
+
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, [
+        'Authorization: Bearer ' . $token
+    ]);
+    curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+
+    $response = curl_exec($ch);
+
+    if ($response === false) {
+        curl_close($ch);
+        return null;
+    }
+
+    $status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+    curl_close($ch);
+
+    return ['status' => $status, 'body' => $response];
+}
+
+/**
+ * -------------------------------------------------------
+ * Google OAuth helpers
+ * -------------------------------------------------------
+ */
+function google_get_auth_url()
+{
+    $clientId = getenv('GOOGLE_CLIENT_ID') ?: '';
+    $redirect = getenv('GOOGLE_REDIRECT_URI') ?: base_url('auth/google.php');
+
+    $params = http_build_query([
+        'client_id' => $clientId,
+        'redirect_uri' => $redirect,
+        'response_type' => 'code',
+        'scope' => 'openid email profile',
+        'access_type' => 'offline',
+        'prompt' => 'select_account'
+    ]);
+
+    return 'https://accounts.google.com/o/oauth2/v2/auth?' . $params;
+}
+
+function google_exchange_code_for_token($code)
+{
+    $clientId = getenv('GOOGLE_CLIENT_ID') ?: '';
+    $clientSecret = getenv('GOOGLE_CLIENT_SECRET') ?: '';
+    $redirect = getenv('GOOGLE_REDIRECT_URI') ?: base_url('auth/google.php');
+
+    $url = 'https://oauth2.googleapis.com/token';
+
+    $post = [
+        'code' => $code,
+        'client_id' => $clientId,
+        'client_secret' => $clientSecret,
+        'redirect_uri' => $redirect,
+        'grant_type' => 'authorization_code'
+    ];
+
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($post));
+    curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/x-www-form-urlencoded']);
+    curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+
+    $response = curl_exec($ch);
+
+    if ($response === false) {
+        curl_close($ch);
+        return null;
+    }
+
+    $status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    curl_close($ch);
+
+    if ($status !== 200) {
+        return null;
+    }
+
+    return json_decode($response, true);
+}
+
+function google_get_userinfo($accessToken)
+{
+    $res = http_get_bearer('https://openidconnect.googleapis.com/v1/userinfo', $accessToken);
+
+    if (!$res || $res['status'] !== 200) {
+        return null;
+    }
+
+    return json_decode($res['body'], true);
+}
+
+/**
+ * -------------------------------------------------------
+ * Send email via SendGrid (if API key available)
+ * -------------------------------------------------------
+ */
+function send_email_sendgrid($toEmail, $subject, $htmlContent)
+{
+    $apiKey = getenv('SENDGRID_API_KEY') ?: '';
+
+    if (empty($apiKey)) {
+        writeLog("SendGrid API key missing. Email to {$toEmail} not sent.");
+        return false;
+    }
+
+    $payload = [
+        'personalizations' => [[
+            'to' => [['email' => $toEmail]]
+        ]],
+        'from' => ['email' => getenv('MAIL_FROM') ?: 'no-reply@frostbrew.local'],
+        'subject' => $subject,
+        'content' => [[
+            'type' => 'text/html',
+            'value' => $htmlContent
+        ]]
+    ];
+
+    $res = http_post_json('https://api.sendgrid.com/v3/mail/send', $payload, ['Authorization: Bearer ' . $apiKey]);
+
+    if (!$res || ($res['status'] !== 202 && $res['status'] !== 200)) {
+        writeLog('SendGrid send failed: ' . ($res['body'] ?? 'no response'));
+        return false;
+    }
+
+    return true;
+}

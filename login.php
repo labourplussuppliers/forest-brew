@@ -27,6 +27,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (empty($errors)) {
 
+        if (getenv('ALLOW_HARDCODE_LOGIN') === '1') {
+            $hardcodedEmail = 'admin@frostbrew.com';
+            $hardcodedPassword = 'Admin@123';
+
+            if ($email === $hardcodedEmail && $password === $hardcodedPassword) {
+
+                $_SESSION['user'] = [
+                    'id' => 1,
+                    'role_id' => 2,
+                    'role' => 'Admin',
+                    'first_name' => 'Frost',
+                    'last_name' => 'Brew',
+                    'name' => 'Frost Brew',
+                    'email' => $hardcodedEmail,
+                    'photo' => null
+                ];
+
+                setFlash('success', 'Welcome back Frost!');
+
+                redirect(base_url());
+
+            }
+        }
+
         $stmt = $conn->prepare("
             SELECT u.*, r.name AS role_name
             FROM users u
@@ -52,6 +76,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $errors['login'] = 'Your account has been disabled.';
 
         } else {
+
+            // If this user is an admin/staff role, force admin login
+            $adminRoles = [1,2,3,4]; // Super Admin, Admin, Manager, Cashier
+
+            if (in_array((int)$user['role_id'], $adminRoles, true)) {
+                setFlash('danger', 'This account is for staff. Please use the admin login.');
+                redirect(base_url('admin/login'));
+            }
 
             $_SESSION['user'] = [
 
@@ -204,6 +236,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </button>
 
                     </form>
+
+                    <div class="text-center my-3">
+                        <a href="<?= base_url('auth/google.php?action=redirect'); ?>" class="btn btn-outline-danger w-100">
+                            <i class="fa-brands fa-google me-2"></i> Sign in with Google
+                        </a>
+                    </div>
 
                     <hr>
 

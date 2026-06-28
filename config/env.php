@@ -12,6 +12,13 @@ function loadEnv(string $path): void
         return;
     }
 
+    $host = $_SERVER['HTTP_HOST'] ?? '';
+    $isLocal = str_contains($host, 'localhost') || str_contains($host, '127.0.0.1');
+
+    if ($isLocal) {
+        return;
+    }
+
     $lines = file($path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 
     foreach ($lines as $line) {
