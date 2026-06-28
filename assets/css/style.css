@@ -1,0 +1,1759 @@
+/*=========================================================
+FROST & BREW
+Global Design System
+Version : 1.0
+Bootstrap : 5.x
+=========================================================*/
+
+
+/*=====================================
+Google Font
+======================================*/
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+
+/*=====================================
+Root Variables
+======================================*/
+
+:root {
+
+    --primary: #5C3D2E;
+
+    --secondary: #8B5E3C;
+
+    --accent: #D4A373;
+
+    --cream: #FAF3E0;
+
+    --white: #ffffff;
+
+    --black: #2E2E2E;
+
+    --gray: #6c757d;
+
+    --light: #f8f9fa;
+
+    --success: #198754;
+
+    --danger: #dc3545;
+
+    --warning: #ffc107;
+
+    --radius-sm: 8px;
+
+    --radius-md: 15px;
+
+    --radius-lg: 25px;
+
+    --shadow-sm: 0 5px 15px rgba(0, 0, 0, .08);
+
+    --shadow-md: 0 10px 25px rgba(0, 0, 0, .12);
+
+    --shadow-lg: 0 20px 40px rgba(0, 0, 0, .15);
+
+    --transition: .3s ease;
+
+}
+
+
+
+/*=====================================
+Reset
+======================================*/
+
+* {
+
+    margin: 0;
+
+    padding: 0;
+
+    box-sizing: border-box;
+
+}
+
+html {
+
+    scroll-behavior: smooth;
+
+}
+
+body {
+
+    font-family: 'Poppins', sans-serif;
+
+    background: var(--white);
+
+    color: var(--black);
+
+    overflow-x: hidden;
+
+    line-height: 1.7;
+
+}
+
+img {
+
+    max-width: 100%;
+
+    display: block;
+
+}
+
+a {
+
+    text-decoration: none;
+
+    transition: var(--transition);
+
+}
+
+ul {
+
+    list-style: none;
+
+    padding: 0;
+
+    margin: 0;
+
+}
+
+
+
+/*=====================================
+Typography
+======================================*/
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+
+    font-weight: 700;
+
+    color: var(--primary);
+
+}
+
+.section-title {
+
+    font-size: 42px;
+
+    font-weight: 700;
+
+    margin-bottom: 15px;
+
+}
+
+.section-subtitle {
+
+    color: var(--gray);
+
+    max-width: 650px;
+
+    margin: auto;
+
+}
+
+
+
+/*=====================================
+Spacing
+======================================*/
+
+.section-padding {
+
+    padding: 90px 0;
+
+}
+
+.mt-100 {
+
+    margin-top: 100px;
+
+}
+
+.mb-100 {
+
+    margin-bottom: 100px;
+
+}
+
+
+
+/*=====================================
+Buttons
+======================================*/
+
+.btn {
+
+    border-radius: 50px;
+
+    padding: 12px 28px;
+
+    font-weight: 600;
+
+    transition: .3s;
+
+    box-shadow: none;
+
+}
+
+.btn-primary {
+
+    background: var(--primary);
+
+    border-color: var(--primary);
+
+}
+
+.btn-primary:hover {
+
+    background: var(--secondary);
+
+    border-color: var(--secondary);
+
+    transform: translateY(-3px);
+
+}
+
+.btn-outline-primary {
+
+    border: 2px solid var(--primary);
+
+    color: var(--primary);
+
+}
+
+.btn-outline-primary:hover {
+
+    background: var(--primary);
+
+    color: #fff;
+
+}
+
+.btn-warning {
+
+    background: var(--accent);
+
+    border: none;
+
+    color: #fff;
+
+}
+
+.btn-warning:hover {
+
+    background: #c68f5c;
+
+    color: #fff;
+
+}
+
+
+
+/*=====================================
+Cards
+======================================*/
+
+.card {
+
+    border: none;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+
+    box-shadow: var(--shadow-sm);
+
+    transition: .3s;
+
+}
+
+.card:hover {
+
+    transform: translateY(-8px);
+
+    box-shadow: var(--shadow-lg);
+
+}
+
+
+
+/*=====================================
+Images
+======================================*/
+
+.img-cover {
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+
+}
+
+.rounded-20 {
+
+    border-radius: 20px;
+
+}
+
+
+
+/*=====================================
+Forms
+======================================*/
+
+.form-control {
+
+    border-radius: 12px;
+
+    padding: 14px 18px;
+
+    border: 1px solid #ddd;
+
+    box-shadow: none;
+
+}
+
+.form-control:focus {
+
+    border-color: var(--primary);
+
+    box-shadow: none;
+
+}
+
+
+
+/*=====================================
+Badges
+======================================*/
+
+.badge {
+
+    border-radius: 50px;
+
+    padding: 10px 15px;
+
+}
+
+
+
+/*=====================================
+Utilities
+======================================*/
+
+.text-primary-custom {
+
+    color: var(--primary);
+
+}
+
+.bg-primary-custom {
+
+    background: var(--primary);
+
+}
+
+.bg-cream {
+
+    background: var(--cream);
+
+}
+
+.shadow-custom {
+
+    box-shadow: var(--shadow-md);
+
+}
+
+.radius {
+
+    border-radius: 20px;
+
+}
+
+
+
+/*=====================================
+Preloader
+======================================*/
+
+#preloader {
+
+    position: fixed;
+
+    inset: 0;
+
+    background: linear-gradient(180deg, rgba(255, 255, 255, 1), rgba(247, 239, 229, 1));
+
+    z-index: 999999;
+
+    display: grid;
+
+    place-items: center;
+
+}
+
+#preloader.hide {
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    transition: opacity .4s ease, visibility .4s ease;
+
+}
+
+#preloader .preloader-content {
+
+    text-align: center;
+
+    max-width: 260px;
+
+    width: 100%;
+
+}
+
+#preloader .preloader-logo {
+
+    width: 90px;
+
+    margin: 0 auto 1rem;
+
+}
+
+#preloader .preloader-text {
+
+    color: var(--gray);
+
+    font-size: 1rem;
+
+    letter-spacing: .02em;
+
+}
+
+
+
+/*=====================================
+Back To Top
+======================================*/
+
+#backToTop {
+
+    position: fixed;
+
+    bottom: 25px;
+
+    right: 25px;
+    padding: 18px 15px;
+
+    border: none;
+
+    border-radius: 50%;
+
+    display: none;
+
+    z-index: 999;
+
+}
+
+
+
+/*=====================================
+Scrollbar
+======================================*/
+
+::-webkit-scrollbar {
+
+    width: 10px;
+
+}
+
+::-webkit-scrollbar-thumb {
+
+    background: var(--primary);
+
+}
+
+::-webkit-scrollbar-track {
+
+    background: #f2f2f2;
+
+}
+
+/*=========================================================
+Navbar
+=========================================================*/
+
+header {
+
+    position: relative;
+
+    z-index: 999;
+
+}
+
+.navbar {
+
+    background: #fff;
+
+    padding: 15px 0;
+
+    transition: all .35s ease;
+
+}
+
+.navbar.scrolled {
+
+    padding: 8px 0;
+
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .08);
+
+}
+
+.navbar-brand {
+
+    font-size: 30px;
+
+    font-weight: 700;
+
+    color: var(--primary) !important;
+
+}
+
+.navbar-brand img {
+
+    height: 55px;
+
+    transition: .3s;
+
+}
+
+.navbar-nav .nav-link {
+
+    color: var(--black);
+
+    font-weight: 500;
+
+    margin: 0 12px;
+
+    position: relative;
+
+    transition: .3s;
+
+}
+
+.navbar-nav .nav-link:hover {
+
+    color: var(--primary);
+
+}
+
+.navbar-nav .nav-link.active {
+
+    color: var(--primary);
+
+}
+
+.navbar-nav .nav-link::after {
+
+    content: "";
+
+    position: absolute;
+
+    bottom: -6px;
+
+    left: 50%;
+
+    width: 0;
+
+    height: 2px;
+
+    background: var(--accent);
+
+    transform: translateX(-50%);
+
+    transition: .3s;
+
+}
+
+.navbar-nav .nav-link:hover::after,
+
+.navbar-nav .nav-link.active::after {
+
+    width: 100%;
+
+}
+
+.navbar .btn {
+
+    border-radius: 50px;
+
+}
+
+
+
+/*=========================================================
+Hero Section
+=========================================================*/
+
+.hero-section {
+
+    min-height: 90vh;
+
+    display: flex;
+
+    align-items: center;
+
+    background: linear-gradient(rgba(250, 243, 224, .75),
+            rgba(255, 255, 255, .95));
+
+    overflow: hidden;
+
+    position: relative;
+
+}
+
+.hero-section::before {
+
+    content: "";
+
+    position: absolute;
+
+    right: -120px;
+
+    top: -120px;
+
+    width: 420px;
+
+    height: 420px;
+
+    background: rgba(212, 163, 115, .15);
+
+    border-radius: 50%;
+
+}
+
+.hero-section::after {
+
+    content: "";
+
+    position: absolute;
+
+    left: -150px;
+
+    bottom: -150px;
+
+    width: 380px;
+
+    height: 380px;
+
+    background: rgba(92, 61, 46, .08);
+
+    border-radius: 50%;
+
+}
+
+.hero-section h1 {
+
+    font-size: 62px;
+
+    line-height: 1.2;
+
+}
+
+.hero-section p {
+
+    font-size: 18px;
+
+}
+
+.hero-section img {
+
+    animation: float 4s ease-in-out infinite;
+
+}
+
+@keyframes float {
+
+    0% {
+
+        transform: translateY(0);
+
+    }
+
+    50% {
+
+        transform: translateY(-18px);
+
+    }
+
+    100% {
+
+        transform: translateY(0);
+
+    }
+
+}
+
+
+
+/*=========================================================
+Section Heading
+=========================================================*/
+
+.section-heading {
+
+    margin-bottom: 70px;
+
+}
+
+.section-heading span {
+
+    color: var(--accent);
+
+    font-weight: 600;
+
+    letter-spacing: 1px;
+
+    text-transform: uppercase;
+
+}
+
+.section-heading h2 {
+
+    font-size: 45px;
+
+    margin-top: 10px;
+
+}
+
+.section-heading p {
+
+    max-width: 650px;
+
+    margin: auto;
+
+    color: #777;
+
+}
+
+
+
+/*=========================================================
+Category Cards
+=========================================================*/
+
+.category-card {
+
+    background: #fff;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+
+    transition: .35s;
+
+    box-shadow: var(--shadow-sm);
+
+}
+
+.category-card img {
+
+    height: 240px;
+
+    width: 100%;
+
+    object-fit: cover;
+
+    transition: .4s;
+
+}
+
+.category-card:hover img {
+
+    transform: scale(1.08);
+
+}
+
+.category-card .card-body {
+
+    padding: 25px;
+
+    text-align: center;
+
+}
+
+.category-card h5 {
+
+    margin-bottom: 15px;
+
+}
+
+.category-card:hover {
+
+    transform: translateY(-10px);
+
+    box-shadow: var(--shadow-lg);
+
+}
+
+
+
+/*=========================================================
+Product Card
+=========================================================*/
+
+.product-card {
+
+    background: #fff;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+
+    transition: .35s;
+
+    box-shadow: var(--shadow-sm);
+
+    position: relative;
+
+}
+
+.product-card:hover {
+
+    transform: translateY(-8px);
+
+    box-shadow: var(--shadow-lg);
+
+}
+
+.product-image {
+
+    height: 260px;
+
+    overflow: hidden;
+
+}
+
+.product-image img {
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+
+    transition: .4s;
+
+}
+
+.product-card:hover .product-image img {
+
+    transform: scale(1.08);
+
+}
+
+.product-body {
+
+    padding: 25px;
+
+}
+
+.product-title {
+
+    font-size: 22px;
+
+    margin-bottom: 10px;
+
+}
+
+.product-price {
+
+    color: var(--primary);
+
+    font-size: 22px;
+
+    font-weight: 700;
+
+}
+
+.product-rating {
+
+    color: #ffb703;
+
+    margin: 12px 0;
+
+}
+
+.product-actions {
+
+    display: flex;
+
+    gap: 10px;
+
+}
+
+.product-actions .btn {
+
+    flex: 1;
+
+}
+
+
+
+/*=========================================================
+Discount Badge
+=========================================================*/
+
+.discount-badge {
+
+    position: absolute;
+
+    top: 15px;
+
+    left: 15px;
+
+    background: #dc3545;
+
+    color: #fff;
+
+    padding: 8px 14px;
+
+    border-radius: 50px;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+}
+
+
+
+/*=========================================================
+Offer Banner
+=========================================================*/
+
+.offer-banner {
+
+    background: linear-gradient(135deg,
+            var(--primary),
+            var(--secondary));
+
+    color: #fff;
+
+    border-radius: 30px;
+
+    overflow: hidden;
+
+    position: relative;
+
+}
+
+.offer-banner h2 {
+
+    color: #fff;
+
+    font-size: 50px;
+
+}
+
+.offer-banner img {
+
+    animation: float 4s ease infinite;
+
+}
+
+
+
+/*=========================================================
+Why Choose Us
+=========================================================*/
+
+.feature-box {
+
+    background: #fff;
+
+    border-radius: 20px;
+
+    padding: 40px 25px;
+
+    text-align: center;
+
+    transition: .35s;
+
+    box-shadow: var(--shadow-sm);
+
+}
+
+.feature-box:hover {
+
+    transform: translateY(-8px);
+
+    box-shadow: var(--shadow-lg);
+
+}
+
+.feature-box i {
+
+    font-size: 55px;
+
+    color: var(--accent);
+
+    margin-bottom: 20px;
+
+}
+
+
+
+/*=========================================================
+Counter
+=========================================================*/
+
+.counter-section {
+
+    background: var(--cream);
+
+}
+
+.counter-box {
+
+    text-align: center;
+
+}
+
+.counter-box h2 {
+
+    font-size: 55px;
+
+    color: var(--primary);
+
+}
+
+.counter-box p {
+
+    font-weight: 500;
+
+}
+
+
+
+/*=========================================================
+Image Hover
+=========================================================*/
+
+.image-hover {
+
+    overflow: hidden;
+
+    border-radius: 20px;
+
+}
+
+.image-hover img {
+
+    transition: .5s;
+
+}
+
+.image-hover:hover img {
+
+    transform: scale(1.12);
+
+}
+
+
+
+/*=========================================================
+Section Background
+=========================================================*/
+
+.bg-coffee {
+
+    background: var(--cream);
+
+}
+
+.bg-dark-coffee {
+
+    background: var(--primary);
+
+    color: #fff;
+
+}
+
+/*=========================================================
+Testimonials
+=========================================================*/
+
+.testimonial-card {
+
+    background: #fff;
+
+    border-radius: 20px;
+
+    padding: 35px;
+
+    text-align: center;
+
+    box-shadow: var(--shadow-sm);
+
+    transition: .35s;
+
+    height: 100%;
+
+}
+
+.testimonial-card:hover {
+
+    transform: translateY(-10px);
+
+    box-shadow: var(--shadow-lg);
+
+}
+
+.testimonial-card img {
+
+    width: 90px;
+
+    height: 90px;
+
+    object-fit: cover;
+
+    border-radius: 50%;
+
+    margin: auto;
+
+    margin-bottom: 20px;
+
+    border: 4px solid var(--cream);
+
+}
+
+.testimonial-card h5 {
+
+    margin-bottom: 8px;
+
+}
+
+.testimonial-card .stars {
+
+    color: #ffc107;
+
+    margin: 15px 0;
+
+}
+
+.testimonial-card p {
+
+    color: #666;
+
+    font-size: 15px;
+
+}
+
+
+
+/*=========================================================
+Gallery
+=========================================================*/
+
+.gallery-item {
+
+    overflow: hidden;
+
+    border-radius: 18px;
+
+    position: relative;
+
+}
+
+.gallery-item img {
+
+    width: 100%;
+
+    transition: .45s;
+
+}
+
+.gallery-item:hover img {
+
+    transform: scale(1.1);
+
+}
+
+.gallery-item::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background: rgba(0, 0, 0, .25);
+
+    opacity: 0;
+
+    transition: .35s;
+
+}
+
+.gallery-item:hover::before {
+
+    opacity: 1;
+
+}
+
+
+
+/*=========================================================
+Menu Page
+=========================================================*/
+
+.menu-sidebar {
+
+    background: #fff;
+
+    border-radius: 20px;
+
+    padding: 30px;
+
+    box-shadow: var(--shadow-sm);
+
+    position: sticky;
+
+    top: 100px;
+
+}
+
+.menu-sidebar h5 {
+
+    margin-bottom: 20px;
+
+}
+
+.menu-sidebar ul li {
+
+    margin-bottom: 12px;
+
+}
+
+.menu-sidebar a {
+
+    color: #444;
+
+    transition: .3s;
+
+}
+
+.menu-sidebar a:hover {
+
+    color: var(--primary);
+
+    padding-left: 8px;
+
+}
+
+.menu-search {
+
+    margin-bottom: 30px;
+
+}
+
+
+
+/*=========================================================
+Product Details
+=========================================================*/
+
+.product-gallery {
+
+    background: #fff;
+
+    border-radius: 20px;
+
+    padding: 20px;
+
+    box-shadow: var(--shadow-sm);
+
+}
+
+.product-gallery img {
+
+    border-radius: 15px;
+
+}
+
+.thumbnail-list {
+
+    display: flex;
+
+    gap: 10px;
+
+    margin-top: 15px;
+
+}
+
+.thumbnail-list img {
+
+    width: 80px;
+
+    height: 80px;
+
+    object-fit: cover;
+
+    cursor: pointer;
+
+    border-radius: 10px;
+
+    border: 2px solid transparent;
+
+}
+
+.thumbnail-list img:hover {
+
+    border-color: var(--primary);
+
+}
+
+.product-info {
+
+    padding-left: 20px;
+
+}
+
+.product-info h2 {
+
+    font-size: 40px;
+
+}
+
+.product-price {
+
+    font-size: 32px;
+
+    color: var(--primary);
+
+    font-weight: 700;
+
+}
+
+.product-description {
+
+    color: #666;
+
+    margin: 25px 0;
+
+}
+
+
+
+/*=========================================================
+Quantity
+=========================================================*/
+
+.quantity-box {
+
+    display: flex;
+
+    align-items: center;
+
+    width: 150px;
+
+    border: 1px solid #ddd;
+
+    border-radius: 50px;
+
+    overflow: hidden;
+
+}
+
+.quantity-box button {
+
+    width: 45px;
+
+    border: none;
+
+    background: #f5f5f5;
+
+    font-size: 20px;
+
+    height: 45px;
+
+}
+
+.quantity-box input {
+
+    border: none;
+
+    text-align: center;
+
+    width: 60px;
+
+}
+
+
+
+/*=========================================================
+Cart
+=========================================================*/
+
+.cart-table {
+
+    background: #fff;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+
+    box-shadow: var(--shadow-sm);
+
+}
+
+.cart-table img {
+
+    width: 80px;
+
+}
+
+.cart-summary {
+
+    background: #fff;
+
+    border-radius: 20px;
+
+    padding: 30px;
+
+    box-shadow: var(--shadow-sm);
+
+}
+
+.cart-summary h4 {
+
+    margin-bottom: 25px;
+
+}
+
+.cart-summary ul li {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    margin-bottom: 18px;
+
+}
+
+.total-price {
+
+    font-size: 24px;
+
+    font-weight: 700;
+
+    color: var(--primary);
+
+}
+
+
+
+/*=========================================================
+Checkout
+=========================================================*/
+
+.checkout-card {
+
+    background: #fff;
+
+    padding: 35px;
+
+    border-radius: 20px;
+
+    box-shadow: var(--shadow-sm);
+
+}
+
+.checkout-title {
+
+    margin-bottom: 30px;
+
+}
+
+
+
+/*=========================================================
+Authentication
+=========================================================*/
+
+.auth-section {
+
+    min-height: 100vh;
+
+    display: flex;
+
+    align-items: center;
+
+    background: var(--cream);
+
+}
+
+.auth-card {
+
+    background: #fff;
+
+    border-radius: 25px;
+
+    padding: 45px;
+
+    box-shadow: var(--shadow-lg);
+
+}
+
+.auth-logo {
+
+    width: 80px;
+
+    margin: auto;
+
+    margin-bottom: 20px;
+
+}
+
+
+
+/*=========================================================
+Dashboard
+=========================================================*/
+
+.dashboard-card {
+
+    background: #fff;
+
+    border-radius: 20px;
+
+    padding: 30px;
+
+    box-shadow: var(--shadow-sm);
+
+    transition: .35s;
+
+}
+
+.dashboard-card:hover {
+
+    transform: translateY(-8px);
+
+}
+
+.dashboard-card i {
+
+    font-size: 45px;
+
+    color: var(--primary);
+
+    margin-bottom: 20px;
+
+}
+
+
+
+/*=========================================================
+Newsletter
+=========================================================*/
+
+.newsletter-section {
+
+    background: linear-gradient(135deg,
+
+            var(--primary),
+
+            var(--secondary));
+
+    color: #fff;
+
+}
+
+.newsletter-section h2 {
+
+    color: #fff;
+
+}
+
+
+
+/*=========================================================
+Footer
+=========================================================*/
+
+footer {
+
+    background: #1d1d1d;
+
+    color: #ddd;
+
+}
+
+footer h4,
+
+footer h5 {
+
+    color: #fff;
+
+}
+
+footer a {
+
+    color: #ddd;
+
+    transition: .3s;
+
+}
+
+footer a:hover {
+
+    color: var(--accent);
+
+    padding-left: 5px;
+
+}
+
+footer hr {
+
+    border-color: rgba(255, 255, 255, .1);
+
+}
+
+
+
+/*=========================================================
+Hover Animation
+=========================================================*/
+
+.hover-up {
+
+    transition: .35s;
+
+}
+
+.hover-up:hover {
+
+    transform: translateY(-10px);
+
+}
+
+
+
+/*=========================================================
+Loading Animation
+=========================================================*/
+
+.fade-in {
+
+    animation: fadeIn .8s ease;
+
+}
+
+@keyframes fadeIn {
+
+    from {
+
+        opacity: 0;
+
+        transform: translateY(20px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform: translateY(0);
+
+    }
+
+}
+
+
+
+/*=========================================================
+Utility Classes
+=========================================================*/
+
+.object-cover {
+
+    object-fit: cover;
+
+}
+
+.cursor-pointer {
+
+    cursor: pointer;
+
+}
+
+.transition {
+
+    transition: .35s;
+
+}
+
+.rounded-xl {
+
+    border-radius: 25px;
+
+}
+
+.shadow-lg-custom {
+
+    box-shadow: var(--shadow-lg);
+
+}
+
+.shadow-md-custom {
+
+    box-shadow: var(--shadow-md);
+
+}
+
+.shadow-sm-custom {
+
+    box-shadow: var(--shadow-sm);
+
+}
+
+.border-dashed {
+
+    border: 2px dashed #ddd;
+
+}
+
+.bg-gradient-primary {
+
+    background: linear-gradient(135deg,
+
+            var(--primary),
+
+            var(--secondary));
+
+    color: #fff;
+
+}
+
+.text-accent {
+
+    color: var(--accent);
+
+}
+
+.bg-accent {
+
+    background: var(--accent);
+
+}
