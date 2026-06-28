@@ -8,7 +8,15 @@
  */
 
 if (!defined('BASE_URL')) {
-    define('BASE_URL', '/Frost&Brew/');
+    $scheme = (!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off') || 
+              (!empty($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == 443)
+              ? 'https' : 'http';
+
+    $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
+    $basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'])), '/');
+    $basePath = $basePath === '/' ? '' : $basePath;
+
+    define('BASE_URL', $scheme . '://' . $host . $basePath . '/');
 }
 
 /**
